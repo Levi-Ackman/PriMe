@@ -3,8 +3,6 @@ import torch.nn as nn
 from transformers import GPT2Tokenizer, GPT2Model
 import torch.nn.functional as F
 
-local_dir='/data/gqyu/alib/weight/gpt2_local'
-
 class GenPromptEmb(nn.Module):
     def __init__(
         self,
@@ -19,8 +17,8 @@ class GenPromptEmb(nn.Module):
         self.model_name = model_name
         self.d_model = d_model
         
-        self.tokenizer = GPT2Tokenizer.from_pretrained(local_dir)
-        self.model = GPT2Model.from_pretrained(local_dir).to(self.device)
+        self.tokenizer = GPT2Tokenizer.from_pretrained(self.model_name)
+        self.model = GPT2Model.from_pretrained(self.model_name).to(self.device)
 
     def _prepare_prompt(self, input_template, in_data, i, j):
         # Time series value
